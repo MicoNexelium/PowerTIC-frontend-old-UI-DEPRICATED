@@ -1,23 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 const HistoricRealPower = () => {
-  const [data, setData] = useState([]);
+  // Generate dummy data for the last 60 minutes
+  const generateLast60MinutesData = () => {
+    const data = [];
+    for (let i = 0; i <= 12; i++) {
+      const faseA = (Math.random() * 8).toFixed(2); // Random values between 0 and 8 for Fase A
+      const faseB = (Math.random() * 8).toFixed(2); // Random values between 0 and 8 for Fase B
+      const faseC = (Math.random() * 8).toFixed(2); // Random values between 0 and 8 for Fase C
+      const promedio = (((+faseA + +faseB + +faseC) / 3).toFixed(2)); // Calculate average phase value
+      data.push({
+        name: `-${i * 5} min`, // Labels for every 5-minute interval
+        faseA: +faseA,
+        faseB: +faseB,
+        faseC: +faseC,
+        promedio: +promedio,
+      });
+    }
+    return data;
+  };
 
-  // Fetch data from the /api/historicrealpower endpoint when the component mounts
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/api/historicrealpower');
-        const result = await response.json();
-        setData(result); // Set the data state with the fetched result
-      } catch (error) {
-        console.error('Error fetching historic real power data:', error);
-      }
-    };
-
-    fetchData(); // Call fetchData on component mount
-  }, []);
+  // Set dummy data for the last 60 minutes
+  const [data] = useState(generateLast60MinutesData());
 
   return (
     <div>

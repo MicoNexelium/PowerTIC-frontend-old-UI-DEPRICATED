@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Text } from 'recharts';
 
 const renderCustomLabel = ({ x, y, width, value }) => (
@@ -8,39 +8,13 @@ const renderCustomLabel = ({ x, y, width, value }) => (
 );
 
 const Current = () => {
-  const [currentData, setCurrentData] = useState([
-    { name: 'Promedio por fase', value: 0, color: '#69B2A6' },
-    { name: 'Fase A', value: 0, color: '#83C5B1' },
-    { name: 'Fase B', value: 0, color: '#83C5B1' },
-    { name: 'Fase C', value: 0, color: '#83C5B1' },
-    { name: 'Desbalance %', value: 0, color: '#F2A007' },
+  const [currentData] = useState([
+    { name: 'Promedio por fase', value: 12.5, color: '#69B2A6' },
+    { name: 'Fase A', value: 13.2, color: '#83C5B1' },
+    { name: 'Fase B', value: 12.9, color: '#83C5B1' },
+    { name: 'Fase C', value: 11.8, color: '#83C5B1' },
+    { name: 'Desbalance %', value: 3.5, color: '#F2A007' },
   ]);
-
-  // Fetch current data from the API when the component mounts
-  useEffect(() => {
-    const fetchCurrentData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/api/current');
-        const data = await response.json();
-
-        // Calculate the average phase current
-        const averagePhase = ((data.amps_phase_a + data.amps_phase_b + data.amps_phase_c) / 3).toFixed(2);
-
-        // Update the data state with the fetched values
-        setCurrentData([
-          { name: 'Promedio por fase', value: parseFloat(averagePhase), color: '#69B2A6' },
-          { name: 'Fase A', value: data.amps_phase_a, color: '#83C5B1' },
-          { name: 'Fase B', value: data.amps_phase_b, color: '#83C5B1' },
-          { name: 'Fase C', value: data.amps_phase_c, color: '#83C5B1' },
-          { name: 'Desbalance %', value: parseFloat(data.current_imbalance), color: '#F2A007' },
-        ]);
-      } catch (error) {
-        console.error('Error fetching current data:', error);
-      }
-    };
-
-    fetchCurrentData();
-  }, []);
 
   return (
     <ResponsiveContainer width="100%" height={400}>

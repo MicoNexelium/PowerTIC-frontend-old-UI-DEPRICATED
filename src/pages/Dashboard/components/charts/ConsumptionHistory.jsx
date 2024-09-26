@@ -1,21 +1,26 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
-  { name: 'Ene', value: 0 },
-  { name: 'Feb', value: 0 },
-  { name: 'Mar', value: 0 },
-  { name: 'Abr', value: 0 },
-  { name: 'May', value: 0 },
-  { name: 'Jun', value: 0 },
-  { name: 'Jul', value: 0 },
-  { name: 'Ago', value: 0 },
-  { name: 'Sept', value: 0 },
-  { name: 'Oct', value: 0 },
-  { name: 'Nov', value: 0 },
-  { name: 'Dic', value: 0 },
-];
+// Generate dummy data for each month
+const generateMonthlyData = () => {
+  return [
+    { name: 'Ene', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Feb', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Mar', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Abr', value: (Math.random() * 100).toFixed(2) },
+    { name: 'May', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Jun', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Jul', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Ago', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Sept', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Oct', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Nov', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Dic', value: (Math.random() * 100).toFixed(2) },
+  ];
+};
 
-export default function ConsumptionHistory () {
+const data = generateMonthlyData();
+
+export default function ConsumptionHistory() {
   return (
     <ResponsiveContainer width="100%" height={500}>
       <BarChart data={data} layout="vertical" margin={{ top: 20, right: 50, left: 50, bottom: 20 }}>

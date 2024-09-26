@@ -1,31 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 const HistoricPF = () => {
-  const [data, setData] = useState([]);
+  // Generate the last 60 minutes data
+  const generateLast60MinutesData = () => {
+    const data = [];
+    for (let i = 0; i <= 12; i++) {
+      data.push({
+        name: `-${i * 5} min`,
+        promedio: (0.90 + Math.random() * 0.10).toFixed(2), // Random value between 0.90 and 1.00
+      });
+    }
+    return data;
+  };
 
-  // Fetch data from the /api/historicpf endpoint when the component mounts
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/api/historicpf');
-        const result = await response.json();
-        setData(result); // Set the data state with the fetched result
-      } catch (error) {
-        console.error('Error fetching historic power factor data:', error);
-      }
-    };
-
-    fetchData(); // Call fetchData on component mount
-  }, []);
+  // Set dummy data for the last 60 minutes
+  const [data] = useState(generateLast60MinutesData());
 
   return (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart data={data} margin={{ top: 20, right: 30, left: 30, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-        <XAxis dataKey="name" tick={{ fill: '#ccc', fontSize: 18 }} reversed={true} />
-        <YAxis 
-          tick={{ fill: '#ccc', fontSize: 18 }} 
+        <XAxis dataKey="name" tick={{ fill: '#ccc', fontSize: 18 }} />
+        <YAxis
+          tick={{ fill: '#ccc', fontSize: 18 }}
           domain={[0.90, 1.0]} // Set domain to match expected power factor range
           ticks={[0.92, 0.94, 0.96, 0.98, 1.00]} // Customize Y-axis ticks
         />

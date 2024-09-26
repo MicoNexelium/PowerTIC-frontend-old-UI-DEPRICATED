@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 const HistoricPowerConsumption = () => {
-  const [data, setData] = useState([]);
+  // Generate dummy data for the last 60 minutes
+  const generateLast60MinutesData = () => {
+    const data = [];
+    for (let i = 0; i <= 12; i++) {
+      data.push({
+        name: `-${i * 5} min`, // Labels for every 5-minute interval
+        kw: (Math.random() * 10).toFixed(2), // Random kW values between 0 and 10
+        kvar: (Math.random() * 5).toFixed(2), // Random KVAr values between 0 and 5
+      });
+    }
+    return data;
+  };
 
-  useEffect(() => {
-    // Fetch data from the API endpoint
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/api/historicpowerconsumption');
-        const result = await response.json();
-        setData(result); // Set the fetched data
-      } catch (error) {
-        console.error('Error fetching historic power consumption:', error);
-      }
-    };
-
-    fetchData(); // Call the function to fetch data on component mount
-  }, []);
+  // Set dummy data for the last 60 minutes
+  const [data] = useState(generateLast60MinutesData());
 
   return (
     <ResponsiveContainer width="100%" height={400}>

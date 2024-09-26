@@ -1,20 +1,25 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
-  { name: 'Enero', value: 0 },
-  { name: 'Febrero', value: 0 },
-  { name: 'Marzo', value: 0 },
-  { name: 'Abril', value: 0 },
-  { name: 'Mayo', value: 0 },
-  { name: 'Junio', value: 0 },
-  { name: 'Julio', value: 0 },
-  { name: 'Agosto', value: 0 },
-  { name: 'Septiembre', value: 0 },
-  { name: 'Octubre', value: 0 },
-  { name: 'Noviembre', value: 0 },
-  { name: 'Diciembre', value: 0 },
-];
+// Generate dummy data for each month
+const generateMonthlyData = () => {
+  return [
+    { name: 'Enero', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Febrero', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Marzo', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Abril', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Mayo', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Junio', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Julio', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Agosto', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Septiembre', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Octubre', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Noviembre', value: (Math.random() * 100).toFixed(2) },
+    { name: 'Diciembre', value: (Math.random() * 100).toFixed(2) },
+  ];
+};
+
+const data = generateMonthlyData();
 
 const DemandProfile = () => {
   return (
